@@ -8,7 +8,7 @@ export class SignupService {
 
   constructor(private http: HttpClient) { }
 
-  private _signupUrl = "http://localhost:3100/auth/signup";
+  private _signupUrl = "http://13.233.193.228:3100/auth/signup";
 
   signupUser(
     user: {

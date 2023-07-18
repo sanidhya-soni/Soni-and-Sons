@@ -1,5 +1,4 @@
-# Stage 1: Build the Angular application
-FROM node:20
+FROM node:18
 
 WORKDIR /app
 
@@ -13,4 +12,4 @@ COPY . .
 
 RUN ng build
 
-CMD ["npx", "http-server", "dist/webapp"]
+CMD ["npx", "http-server", "dist/webapp", "-p", "80"]

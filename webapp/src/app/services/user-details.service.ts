@@ -8,7 +8,7 @@ export class UserDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  private _userUrl = 'http://localhost:3100/user/get-user';
+  private _userUrl = 'http://13.233.193.228:3100/user/get-user';
 
   getUserDetails() {
     return this.http.get<any>(this._userUrl, {
