@@ -8,7 +8,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  private _loginUrl = "http://13.233.193.228:3100/auth/login";
+  private _loginUrl = "http://localhost:3100/auth/login";
 
   loginUser(user: { user_name: string, password: string; }) {
     return this.http.post<any>(this._loginUrl, user);

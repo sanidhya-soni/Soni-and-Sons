@@ -23,8 +23,8 @@ export class LoginComponent {
     private _router: Router
   ) { }
 
-  async loginUser() {
-    await this._login.loginUser(this.loginUserData).subscribe(
+  loginUser() {
+    this._login.loginUser(this.loginUserData).subscribe(
       (response) => {
         // Handle the API response
         // console.log(response);

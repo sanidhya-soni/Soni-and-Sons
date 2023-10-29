@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
-import { UserDetailsService } from '../services/user-details.service';
+// import { UserDetailsService } from '../services/user-details.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit {
 
@@ -35,7 +35,7 @@ export class NavbarComponent implements AfterViewInit {
   private i = 0;
 
   constructor(
-    private _getUserDetails: UserDetailsService,
+    // private _getUserDetails: UserDetailsService,
     private renderer: Renderer2) { }
 
 
@@ -45,22 +45,22 @@ export class NavbarComponent implements AfterViewInit {
 
   ngOnInit() {
 
-    this._getUserDetails.getUserDetails().subscribe(
-      (response) => {
-        // Handle the API response
-        this.user = response.body;
-        localStorage.setItem('user_name', this.user.user_name);
-        localStorage.setItem('userFullName', `${this.user.first_name} ${this.user.last_name}`);
-        console.log(this.user);
-      },
-      (error) => {
-        // Handle any errors
-        // console.error(error);
-        // this.error = error.message;
-        console.log(error.message);
-        console.log(error.status);
-      }
-    );
+    // this._getUserDetails.getUserDetails().subscribe(
+    //   (response) => {
+    //     // Handle the API response
+    //     this.user = response.body;
+    //     localStorage.setItem('user_name', this.user.user_name);
+    //     localStorage.setItem('userFullName', `${this.user.first_name} ${this.user.last_name}`);
+    //     console.log(this.user);
+    //   },
+    //   (error) => {
+    //     // Handle any errors
+    //     // console.error(error);
+    //     // this.error = error.message;
+    //     console.log(error.message);
+    //     console.log(error.status);
+    //   }
+    // );
     // console.log(details);
   }
 
