@@ -1,21 +1,12 @@
 <app-navbar></app-navbar>
-<body>
-  <div class="container">
-    <h1>Start a new journey {{ user.userFullName || "Loading..." }}</h1>
-    <div class="shape">
-      <div class="slanted-cut">
-        <!-- <img src="../../assets/05.jpg" alt="Your Image Alt Text" /> -->
-        <app-carousel></app-carousel>
-      </div>
+<div class="container">
+  <h1>Start a new journey {{ user.userFullName || "Loading..." }}</h1>
+  <div class="shape">
+    <div class="slanted-cut">
+      <app-carousel></app-carousel>
     </div>
-    
-    <!-- <div class="shape">
-      <div class="slanted-cut">
-        <img src="../../assets/03.jpg" alt="Your Image Alt Text" />
-      </div>
-    </div> -->
   </div>
-</body>
-
+</div>
+<app-footer></app-footer>
 
 <router-outlet></router-outlet>
