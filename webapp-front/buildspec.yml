@@ -1,11 +1,11 @@
-version: 0.2
+version: 0.1
 phases:
   install:
     commands:
       - npm install
   build:
     commands:
-      - ng build --prod
+      - ng build
 artifacts:
   files:
     - dist/*.*
