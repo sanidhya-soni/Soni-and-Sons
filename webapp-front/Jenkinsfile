@@ -22,6 +22,7 @@ pipeline {
                 // Install Node.js and Angular CLI if not already installed
                 // sh 'npm install -g @angular/cli'
                 // Install project dependencies
+                sh 'node -v'
                 sh 'npm install'
                 // Build the Angular application
                 sh 'ng build --prod'
