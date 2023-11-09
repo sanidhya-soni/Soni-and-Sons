@@ -18,11 +18,18 @@ pipeline {
         }
 
         stage('Build') {
-            dir('webapp-front') {
-                steps {
-                    // Now you are inside the "webapp-front" directory
+            steps {
+                script {
+                    // List the contents of the current directory
                     sh 'ls'
-                    sh 'npm install'
+                }
+                // Change working directory to "webapp-front"
+                dir('webapp-front') {
+                    script {
+                        // Now you are inside the "webapp-front" directory
+                        sh 'ls'
+                        sh 'npm install'
+                    }
                 }
             }
         }
