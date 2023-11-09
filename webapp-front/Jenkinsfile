@@ -29,6 +29,7 @@ pipeline {
                         // Now you are inside the "webapp-front" directory
                         sh 'ls'
                         sh 'npm install'
+                        sh 'ls'
                     }
                 }
             }
@@ -38,6 +39,7 @@ pipeline {
             steps {
                 // Upload the build artifacts to an S3 bucket
                 sh 'aws s3 cp dist/ s3://soni-and-sons/Frontend/ --recursive'
+                sh 'aws s3 sync --acl public-read soni-and-sons/webapp-front/dist/ s3://soni-and-sons'
             }
         }
     }
