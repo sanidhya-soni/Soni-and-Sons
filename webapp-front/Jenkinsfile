@@ -19,7 +19,7 @@ pipeline {
 
         stage('Build') {
             dir('webapp-front') {
-                script {
+                steps {
                     // Now you are inside the "webapp-front" directory
                     sh 'ls'
                     sh 'npm install'
