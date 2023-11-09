@@ -29,7 +29,7 @@ pipeline {
                         // Now you are inside the "webapp-front" directory
                         sh 'ls'
                         sh 'npm install'
-                        sh 'ng build --prod'
+                        sh 'ng build'
                         sh 'ls'
                     }
                 }
