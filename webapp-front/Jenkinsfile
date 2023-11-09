@@ -20,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Install Node.js and Angular CLI if not already installed
-                sh 'npm install -g @angular/cli'
+                // sh 'npm install -g @angular/cli'
                 // Install project dependencies
                 sh 'npm install'
                 // Build the Angular application
