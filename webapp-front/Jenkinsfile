@@ -35,6 +35,15 @@ pipeline {
             }
         }
 
+        stage('Check Environment') {
+            steps {
+                script {
+                    sh 'echo $AWS_ACCESS_KEY_ID'
+                    sh 'echo $AWS_SECRET_ACCESS_KEY'
+                }
+            }
+        }
+
         stage('Deploy to S3') {
             steps {
                 // Upload the build artifacts to an S3 bucket
