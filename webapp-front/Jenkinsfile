@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    environment {
-        AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
-    }
+    // environment {
+    //     AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
+    //     AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
+    // }
     stages {
         stage('Checkout') {
             steps {
