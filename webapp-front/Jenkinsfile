@@ -40,12 +40,14 @@ pipeline {
                 def awsCredentials = credentials('AWSCred')
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWSCred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     // Checkout the code from your GitHub repository
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+                    // checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+                    sh 'ls'
+                    sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
                 }
                 // Upload the build artifacts to an S3 bucket
                 // sh 'aws s3 cp dist/ s3://soni-and-sons/Frontend/ --recursive'
-                sh 'ls'
-                sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
+                // sh 'ls'
+                // sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
             }
         }
     }
