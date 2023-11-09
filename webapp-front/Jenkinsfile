@@ -1,18 +1,86 @@
+// pipeline {
+//     agent any
+//     // environment {
+//     //     AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
+//     //     AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
+//     // }
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 script {
+//                     def awsCredentials = credentials('AWSCred')
+//                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWSCred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+//                         // Checkout the code from your GitHub repository
+//                         checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+//                     }
+//                 }
+//             }
+//         }
+
+//         stage('Build') {
+//             steps {
+//                 script {
+//                     // List the contents of the current directory
+//                     sh 'ls'
+//                 }
+//                 // Change working directory to "webapp-front"
+//                 dir('webapp-front') {
+//                     script {
+//                         // Now you are inside the "webapp-front" directory
+//                         sh 'ls'
+//                         sh 'npm install'
+//                         sh 'ng build'
+//                     }
+//                 }
+//             }
+//         }
+
+//         stage('Check Environment') {
+//             steps {
+//                 script {
+//                     sh 'echo $AWS_ACCESS_KEY_ID'
+//                     sh 'echo $AWS_SECRET_ACCESS_KEY'
+//                 }
+//             }
+//         }
+
+//         stage('Deploy to S3') {
+//             steps {
+//                 // Upload the build artifacts to an S3 bucket
+//                 // sh 'aws s3 cp dist/ s3://soni-and-sons/Frontend/ --recursive'
+//                 // sh 'ls'
+
+//                 withCredentials([[
+//                     $class: 'AmazonWebServicesCredentialsBinding',
+//                     credentialsId: 'AWSCred',
+//                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+//                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+//                 ]]) {
+//                     // Upload the build artifacts to S3
+//                     // sh 'aws s3 sync --acl public-read UPES_CONNECT/frontend/build/ s3://upes-colab'
+//                     sh 'ls'
+//                     sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
 pipeline {
     agent any
-    // environment {
-    //     AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
-    //     AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
-    // }
+    environment {
+        // Define the AWS credentials globally
+        AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
+        AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
+    }
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    def awsCredentials = credentials('AWSCred')
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWSCred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        // Checkout the code from your GitHub repository
-                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
-                    }
+                    // No need to redefine AWS credentials here
+                    // Use the global credentials
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
                 }
             }
         }
@@ -46,10 +114,6 @@ pipeline {
 
         stage('Deploy to S3') {
             steps {
-                // Upload the build artifacts to an S3 bucket
-                // sh 'aws s3 cp dist/ s3://soni-and-sons/Frontend/ --recursive'
-                // sh 'ls'
-
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'AWSCred',
@@ -57,7 +121,6 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     // Upload the build artifacts to S3
-                    // sh 'aws s3 sync --acl public-read UPES_CONNECT/frontend/build/ s3://upes-colab'
                     sh 'ls'
                     sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
                 }
