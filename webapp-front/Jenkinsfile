@@ -19,16 +19,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Install Node.js and Angular CLI if not already installed
-                // sh 'npm install -g @angular/cli'
-                // Install project dependencies
-                sh 'pwd'
-                sh 'node -v'
-                sh 'ls'
-                sh 'pwd'
-                sh 'npm install'
-                // Build the Angular application
-                sh 'ng build --prod'
+                // // Install Node.js and Angular CLI if not already installed
+                // // sh 'npm install -g @angular/cli'
+                // // Install project dependencies
+                // sh 'pwd'
+                // sh 'node -v'
+                // sh 'ls' 
+                // sh 'pwd'
+                // sh 'npm install'
+                // // Build the Angular application
+                // sh 'ng build --prod'
+
+                dir('soni-and-sons/webapp-front') {
+                    // Now you are inside the "webapp-front" directory
+                    sh 'pwd'
+                    sh 'node -v'
+                    sh 'ls'
+                    sh 'npm install'
+                    // Build the Angular application
+                    sh 'ng build --prod'
+                }
             }
         }
 
