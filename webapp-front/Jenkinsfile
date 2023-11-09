@@ -24,7 +24,7 @@ pipeline {
                 // Install project dependencies
                 sh 'pwd'
                 sh 'node -v'
-                sh 'cd webapp-front'
+                sh 'ls'
                 sh 'pwd'
                 sh 'npm install'
                 // Build the Angular application
