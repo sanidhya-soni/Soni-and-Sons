@@ -18,11 +18,12 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                sh 'ls'
-                sh 'npm install'
-                // Build the Angular application
-                sh 'ng build --prod'
+            dir('webapp-front') {
+                script {
+                    // Now you are inside the "webapp-front" directory
+                    sh 'ls'
+                    sh 'npm install'
+                }
             }
         }
 
