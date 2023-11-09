@@ -7,8 +7,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from your GitHub repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+                script {
+                    def awsCredentials = credentials('AWSCred')
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWSCred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Checkout the code from your GitHub repository
+                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+                    }
+                }
             }
         }
 
