@@ -101,14 +101,14 @@ pipeline {
             }
         }
 
-        stage('Check Environment') {
-            steps {
-                script {
-                    sh 'echo $AWS_ACCESS_KEY_ID'
-                    sh 'echo $AWS_SECRET_ACCESS_KEY'
-                }
-            }
-        }
+        // stage('Check Environment') {
+        //     steps {
+        //         script {
+        //             sh 'echo $AWS_ACCESS_KEY_ID'
+        //             sh 'echo $AWS_SECRET_ACCESS_KEY'
+        //         }
+        //     }
+        // }
 
         stage('Deploy to S3') {
             steps {
@@ -118,6 +118,8 @@ pipeline {
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
+                    sh 'echo $AWS_ACCESS_KEY_ID'
+                    sh 'echo $AWS_SECRET_ACCESS_KEY'
                     // Upload the build artifacts to S3
                     sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
 
