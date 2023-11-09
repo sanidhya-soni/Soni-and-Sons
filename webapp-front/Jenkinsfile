@@ -34,6 +34,7 @@ pipeline {
                     // Now you are inside the "webapp-front" directory
                     sh 'pwd'
                     sh 'node -v'
+                    sh 'npm -v'
                     sh 'ls'
                     sh 'npm install'
                     // Build the Angular application
