@@ -69,18 +69,16 @@
 
 pipeline {
     agent any
-    environment {
-        // Define the AWS credentials globally
-        AWS_ACCESS_KEY_ID = credentials('AWSCred')['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = credentials('AWSCred')['AWS_SECRET_ACCESS_KEY']
-    }
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    // No need to redefine AWS credentials here
-                    // Use the global credentials
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']]])
+                    def awsCredentials = credentials('AWSCred')
+                    // Use the 'withCredentials' block to set environment variables
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWSCred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Checkout the code from your GitHub repository
+                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sanidhya-soni/Soni-and-Sons']])
+                    }
                 }
             }
         }
@@ -114,16 +112,8 @@ pipeline {
 
         stage('Deploy to S3') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'AWSCred',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                ]]) {
-                    // Upload the build artifacts to S3
-                    sh 'ls'
-                    sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
-                }
+                // Upload the build artifacts to an S3 bucket
+                sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
             }
         }
     }
