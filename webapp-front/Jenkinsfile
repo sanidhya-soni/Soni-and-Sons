@@ -59,7 +59,7 @@ pipeline {
                     // Upload the build artifacts to S3
                     // sh 'aws s3 sync --acl public-read UPES_CONNECT/frontend/build/ s3://upes-colab'
                     sh 'ls'
-                    sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
+                    sh 'aws s3 sync --acl public-read webapp-front/dist/webapp-front/ s3://soni-and-sons'
                 }
             }
         }
