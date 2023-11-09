@@ -30,7 +30,6 @@ pipeline {
                         sh 'ls'
                         sh 'npm install'
                         sh 'ng build'
-                        sh 'ls'
                     }
                 }
             }
@@ -40,6 +39,7 @@ pipeline {
             steps {
                 // Upload the build artifacts to an S3 bucket
                 // sh 'aws s3 cp dist/ s3://soni-and-sons/Frontend/ --recursive'
+                sh 'ls'
                 sh 'aws s3 sync --acl public-read soni-and-sons/webapp-front/dist/ s3://soni-and-sons'
             }
         }
