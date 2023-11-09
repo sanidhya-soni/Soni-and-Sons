@@ -112,8 +112,16 @@ pipeline {
 
         stage('Deploy to S3') {
             steps {
-                // Upload the build artifacts to an S3 bucket
-                sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'AWSCred',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    // Upload the build artifacts to S3
+                    sh 'aws s3 sync --acl public-read webapp-front/dist/ s3://soni-and-sons'
+
+                }
             }
         }
     }
