@@ -20,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir('soni-and-sons/webapp-front') {
-                    sh 'ls'
+                    sh 'ls -l'
                     sh 'npm install'
                     // Build the Angular application
                     sh 'ng build --prod'
