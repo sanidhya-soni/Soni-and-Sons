@@ -1,14 +1,3 @@
-# FROM node:20 as nodejs
-# FROM jenkins/jenkins:lts
-# COPY --from=nodejs /usr/local/bin/node /usr/local/bin/node
-# USER root
-# RUN apt-get update && apt-get install -y curl
-# RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-# RUN apt-get install -y nodejs
-# RUN curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-# RUN npm install -g @angular/cli
-# USER jenkins
-
 FROM node:20 as nodejs
 FROM jenkins/jenkins:lts
 COPY --from=nodejs /usr/local/bin/node /usr/local/bin/node
@@ -27,3 +16,6 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     npm install -g @angular/cli
 
 USER jenkins
+
+# Command to run
+# docker run -d -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins
